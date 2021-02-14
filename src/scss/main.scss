@@ -1,0 +1,173 @@
+@import './colors.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
+
+$cub-out: cubic-bezier(0, 0, 0.01, 1);
+
+@mixin screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    transition: transform 1s cubic-bezier(0.69, 0.01, 0.36, 1);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes loading-bar {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+
+body {
+    font-family: 'Kanit', Arial, Helvetica, sans-serif;
+    margin: 0;
+    line-height: 5rem;
+}
+
+.move-up {
+    transform: translateY(-100vh);
+}
+
+.loading-bar {
+    width: 100%;
+    height: 10px;
+    background-color: currentColor;
+    margin-top: 3rem;
+    animation: loading-bar 4s cubic-bezier(0.51, 0, 0.21, 1);
+}
+
+#screen1 {
+    display: flex !important;
+    @include screen;
+    background-color: $c-pink;
+
+    #click-me {
+        @keyframes click-me-beat {
+            from { box-shadow: 0px 0px 0px 0px rgba($c-green, 1); }
+            to { box-shadow: 0px 0px 0px 200px rgba($c-green, 0.0); }
+        }
+
+        display: flex;
+        margin: auto;
+        font-size: 5rem;
+        font-weight: 600;
+        text-align: center;
+        background-color: $c-green;
+        color: $c-gray;
+        width: 300px;
+        height: 300px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        animation: click-me-beat 2s infinite $cub-out;
+
+        transition: all 1s $cub-out;
+
+        &.clicked {
+            color: transparent;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+    }
+}
+
+#screen2 {
+    @include screen;
+    background-color: $c-green;
+    
+    &.loaded {
+        > div {
+            animation: fade-in 2s $cub-out;
+        }
+    }
+}
+
+#screen3 {
+    @include screen;
+    transform: translateY(100vh);
+    background: url('./../assets/gifs/1.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+
+    &.loaded {
+        transform: translateY(0);
+    }
+}
+
+#screen4 {
+    @include screen;
+    background-color: $c-gray;
+    color: $c-pink;
+    flex-direction: column;
+    transform: translateX(-100vw);
+    transition-duration: 0.5s;
+    transition-timing-function: $cub-out;
+    
+    &.loaded {
+        transform: translateX(0);
+    }
+
+    .appear {
+        max-width: 80vw;
+        word-wrap: break-word;
+        > * {
+            transition: opacity 1s ease;
+            opacity: 0;
+        }
+    }
+
+    .text {
+        margin-top: 10rem;
+        max-width: 80vw;
+        white-space: normal;
+        word-break: break-all;
+        font-family: 'Consolas', monospace;
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.75);
+    }
+}
+
+#screen5 {
+    @include screen;
+    background-color: $c-green;
+    color: $c-gray;
+    transform: translateY(100vh);
+
+    &.loaded {
+        transform: translateY(0);
+    }
+
+    > div {
+        max-width: 50%;
+
+        > .loading-bar {
+            animation-duration: 5s;
+        }
+    }
+}
+
+#screen6 {
+    @include screen;
+    transform: translateY(100vh);
+    background: url('./../assets/gifs/2.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+
+    &.loaded {
+        transform: translateY(0);
+    }
+}
